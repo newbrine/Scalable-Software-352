@@ -22,13 +22,16 @@ public class GuiMain extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(GuiMain.class.getResource("sample.fxml"));
 		Pane root = (Pane) loader.load();
-		root.setBackground(new Background(new BackgroundFill(Color.web("#ffffff"), CornerRadii.EMPTY, Insets.EMPTY)));
+		//root.setStyle("-fx-background: #FFFFFF;");
+		root.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+		//root.setBackground(new Background(new BackgroundFill(Color.web("#ffffff"), CornerRadii.EMPTY, Insets.EMPTY)));
 		
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
-//	Image icon = new Image(this.getClass().getResource("Tomato.png").toString());
-		//primaryStage.getIcons().add(icon);
+		Image icon = new Image(this.getClass().getResource("images.jpeg").toString());
+		primaryStage.getIcons().add(icon);
+		
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	        @Override
 	        public void handle(final WindowEvent event) {

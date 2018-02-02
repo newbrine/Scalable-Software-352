@@ -7,12 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
+import javafx.stage.FileChooser;
 
 public class Controller {
 
 @FXML
 private Button uploadButton;
 
+@FXML
+private Button saveButton;
 
 @FXML 
 private Button playButton;
@@ -25,7 +28,7 @@ private Button puaseButton;
 private Button cropButton;
 
 @FXML 
-private ListView<String> listSongs;
+private ListView<File> listSongs;
 ObservableList<File> samples =  FXCollections.observableArrayList();
 
 @FXML 
@@ -43,13 +46,18 @@ private void initialize() {
 
 @FXML
 private void uploadFile() {
-	File file = getDataFile();
-	if (checkType(file)) {
+	File file = getDataFile1();
+	//if (checkType(file)) {
 		samples.add(file);
-	}
+	//}
 	updateListView();
 	
 	
+}
+File getDataFile1() {
+FileChooser chooser = new FileChooser();
+chooser.setTitle("Select test data");
+return chooser.showOpenDialog(null);
 }
 
 
@@ -63,7 +71,7 @@ private void updateListView() {
 
 private Boolean checkType(File file) {
 	// TODO Auto-generated method stub
-	
+	return null;
 }
 
 
