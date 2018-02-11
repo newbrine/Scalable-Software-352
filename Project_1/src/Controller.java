@@ -1,8 +1,10 @@
 import java.io.File;
+import java.io.IOException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
@@ -23,6 +25,10 @@ private Button playButton;
 @FXML 
 private Button puaseButton;
 
+@FXML
+private ListView<File> playSongs;
+ObservableList<File> playsamples =  FXCollections.observableArrayList();
+
 
 @FXML 
 private Button cropButton;
@@ -38,6 +44,8 @@ private ChoiceBox choiceButton;
 private void initialize() {
 	choiceButton.setItems(FXCollections.observableArrayList(
 		    "New Document", "Open ", "Save", "Save as"));
+	
+	//(samples.get(0)).setOnMouseDragged(event -> dragFile(event));
 
 	
 }
@@ -45,12 +53,15 @@ private void initialize() {
 
 
 @FXML
-private void uploadFile() {
+private void uploadFile() throws IOException {
 	File file = getDataFile1();
 	//if (checkType(file)) {
 		samples.add(file);
+		String fil = (file.getCanonicalPath());
+		
 	//}
 	updateListView();
+	
 	
 	
 }
