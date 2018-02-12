@@ -16,11 +16,17 @@ public class SongList {
 	public void playSong(String songName) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
 		String songPath = songMap.get(songName);
 		File fin = new File(songPath);
-		 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(fin.getAbsoluteFile());
+		 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(fin);
          song = AudioSystem.getClip();
          song.open(audioInputStream);
          song.start();
 		
+	}
+	
+	public void showList() {
+		for (Map.Entry<String,String> entry : songMap.entrySet()) 
+            System.out.println("Key = " + entry.getKey() +
+                             ", Value = " + entry.getValue());
 	}
 	
 

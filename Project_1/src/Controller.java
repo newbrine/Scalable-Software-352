@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +18,10 @@ import javafx.stage.FileChooser;
 public class Controller {
 
 
-	private SongList list;
+	private SongList list = new SongList();
+
+	//privatelist = new Songlist();
+
 
 @FXML
 private Button uploadButton;
@@ -57,14 +63,18 @@ private void initialize() {
 
 
 @FXML
-private void uploadFile() throws IOException {
+private void uploadFile() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 	File file = getDataFile1();
 	//if (checkType(file)) {
 		
 		String fil = (file.getCanonicalPath());
 		Integer idx = fil.lastIndexOf('/');
 		String filString = fil.substring(idx +1);
+		list.addMap(filString, fil);
+		list.playSong(filString);
 		samples.add(filString);
+		list.showList();
+		//System.out.println(list);
 		
 		
 		
