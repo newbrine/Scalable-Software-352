@@ -11,7 +11,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.stage.FileChooser;
 
+
 public class Controller {
+
+
+	private SongList list;
 
 @FXML
 private Button uploadButton;
@@ -26,16 +30,16 @@ private Button playButton;
 private Button puaseButton;
 
 @FXML
-private ListView<File> playSongs;
-ObservableList<File> playsamples =  FXCollections.observableArrayList();
+private ListView<String> playSongs;
+ObservableList<String> playsamples =  FXCollections.observableArrayList();
 
 
 @FXML 
 private Button cropButton;
 
 @FXML 
-private ListView<File> listSongs;
-ObservableList<File> samples =  FXCollections.observableArrayList();
+public ListView<String> listSongs;
+ObservableList<String> samples =  FXCollections.observableArrayList();
 
 @FXML 
 private ChoiceBox choiceButton;
@@ -56,8 +60,14 @@ private void initialize() {
 private void uploadFile() throws IOException {
 	File file = getDataFile1();
 	//if (checkType(file)) {
-		samples.add(file);
+		
 		String fil = (file.getCanonicalPath());
+		Integer idx = fil.lastIndexOf('/');
+		String filString = fil.substring(idx +1);
+		samples.add(filString);
+		
+		
+		
 		
 	//}
 	updateListView();
