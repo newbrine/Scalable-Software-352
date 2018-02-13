@@ -7,6 +7,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.sun.xml.internal.ws.org.objectweb.asm.Label;
+import com.sun.xml.internal.ws.util.StringUtils;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +40,7 @@ private Button saveButton;
 private Button playButton;
 
 @FXML 
-private Button puaseButton;
+private Button pauseButton;
 
 @FXML
 private Button addButton;
@@ -154,17 +155,29 @@ private void playSong() {
 }
 @FXML
 private void pauseSound() {
-	puaseButton.setOnAction(new EventHandler<ActionEvent>() {
+	pauseButton.setOnAction(new EventHandler<ActionEvent>() {
 		
 		@Override
 		public void handle(ActionEvent event) {
-			String songToPause = playSongs.getSelectionModel().getSelectedItem();
-			System.out.println(songToPause);
-			list.pauseSound(songToPause);
-			System.out.println("asdasd");
+			    String str = pauseButton.getText();
+			    String str1 = "Pause";
+				if (str.equals(str1)) {
+				String songToPause = playSongs.getSelectionModel().getSelectedItem();
+				System.out.println(songToPause);
+				list.pauseSound(songToPause);
+				pauseButton.setText("Resume");
+				System.out.println("asdasd");
+				}
+				else {
+					list.resume();
+					pauseButton.setText("Pause");
+				}
+			}
 			
 			
-		}
+			
+			
+		
 	});
 }
 }
