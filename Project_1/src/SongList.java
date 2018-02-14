@@ -84,6 +84,9 @@ public class SongList {
 		mp.stop();
 	}
 	
+	public void clearAll(Map map) {
+		map.clear();
+	}
 	
 		
 	
