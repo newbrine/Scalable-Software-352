@@ -1,24 +1,13 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import com.sun.xml.internal.ws.org.objectweb.asm.Label;
-import com.sun.xml.internal.ws.util.StringUtils;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
 import javafx.stage.FileChooser;
 
 
@@ -27,9 +16,14 @@ public class Controller {
 
 	private SongList list = new SongList();
 
-	//privatelist = new Songlist();
+	
 
+//private boolean click;
+private String currSong = "aa";
 
+@FXML
+private Button stopButton;
+	
 @FXML
 private Button uploadButton;
 
@@ -65,10 +59,9 @@ private ChoiceBox choiceButton;
 @FXML
 private void initialize() {
 	choiceButton.setItems(FXCollections.observableArrayList(
-		    "New Document", "Open ", "Save", "Save as"));
+		    "Add Effects"));
 	
-	//(samples.get(0)).setOnMouseDragged(event -> dragFile(event));
-
+	
 	
 }
 
@@ -86,15 +79,8 @@ private void uploadFile() throws IOException, LineUnavailableException, Unsuppor
 		Integer idx = fil.lastIndexOf('/');
 		String filString = fil.substring(idx +1);
 		list.addMap(filString, fil);
-		//list.playSong(filString);
 		samples.add(filString);
-		list.showList();
-		//System.out.println(list);
 		
-		
-		
-		
-	//}
 	updateListView();
 	
 	
@@ -133,51 +119,44 @@ private void addToPlay() {
 	playSongs.setItems(pSongs);
 }
 
-@FXML
-private void playSong() {
-	playButton.setOnAction(new EventHandler<ActionEvent>() {
-		
-		@Override
-		public void handle(ActionEvent event) {
-			String songToPlay = playSongs.getSelectionModel().getSelectedItem();
-			System.out.println(songToPlay);
-			try {
-				list.playSong(songToPlay);
-			
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-		}
-	});
-}
-@FXML
-private void pauseSound() {
-	pauseButton.setOnAction(new EventHandler<ActionEvent>() {
-		
-		@Override
-		public void handle(ActionEvent event) {
-			    String str = pauseButton.getText();
-			    String str1 = "Pause";
-				if (str.equals(str1)) {
-				String songToPause = playSongs.getSelectionModel().getSelectedItem();
-				System.out.println(songToPause);
-				list.pauseSound(songToPause);
-				pauseButton.setText("Resume");
-				System.out.println("asdasd");
+
+	@FXML
+	private void playSong() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+				String songToPlay = playSongs.getSelectionModel().getSelectedItem();
+				System.out.println("song:" + songToPlay);
+				if (!songToPlay.equals(currSong)) {
+					
+					if (playButton.getText().equals("Play")) {
+						currSong = songToPlay;
+						//list.dispose();
+						list.playSong(songToPlay);
+						playButton.setText("Pause");
+					}
+						
 				}
+				
 				else {
-					list.resume();
-					pauseButton.setText("Pause");
+					if (playButton.getText().equals("Play")) {
+						list.resume();
+						playButton.setText("Pause");
+					}
+					
+					else {
+					
+					playButton.setText("Play");
+					list.pauseSound();
+					}
 				}
+
+
 			}
-			
-			
-			
-			
-		
-	});
-}
+	
+	@FXML
+	private void stop() {
+		list.stop();
+		playButton.setText("Play");
+	}
+	
+
+
 }
