@@ -1,3 +1,2 @@
 # SCALABLE SOFTWARE
 ## Project 1
-### THIS IS FOR YOU GUYS 
